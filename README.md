@@ -9,6 +9,10 @@ Sometimes, websites are protected by a Web Application Firewall, or in short, a 
 
 Finally, AutoSQLi will exploit the website using sqlmap, and give the choice to do whatever he wants !
 
+## Tor
+
+Also, AutoSQLi should work using Tor by default. So it should check for tor availiability on startup.
+
 ## FAQ
 ### Cool :)
 
