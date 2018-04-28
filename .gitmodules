@@ -1,0 +1,9 @@
+[submodule "WhatWaf"]
+	path = WhatWaf
+	url = https://github.com/Ekultek/WhatWaf
+[submodule "sqlmap"]
+	path = sqlmap
+	url = https://github.com/sqlmapproject/sqlmap
+[submodule "DorkNet"]
+	path = DorkNet
+	url = https://github.com/NullArray/DorkNet
