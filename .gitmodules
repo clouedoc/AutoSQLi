@@ -4,6 +4,3 @@
 [submodule "sqlmap"]
 	path = sqlmap
 	url = https://github.com/sqlmapproject/sqlmap
-[submodule "DorkNet"]
-	path = DorkNet
-	url = https://github.com/NullArray/DorkNet
