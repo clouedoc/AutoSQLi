@@ -4,3 +4,12 @@
 [submodule "sqlmap"]
 	path = sqlmap
 	url = https://github.com/sqlmapproject/sqlmap
+[submodule "dorks"]
+	path = dorks
+	url = https://github.com/USSCltd/dorks
+[submodule "googler"]
+	path = googler
+	url = https://github.com/jarun/googler
+[submodule "ddgr"]
+	path = ddgr
+	url = https://github.com/jarun/ddgr
