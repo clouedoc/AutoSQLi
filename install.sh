@@ -3,9 +3,9 @@
 
 # This script install the requirements of DorkNet and WhatWaf
 # And also chmod things up
-pip install -r DorkNet/requirements.txt
 pip install -r WhatWaf/requirements.txt
 pip install -r requirements.txt
+pip install pysocks
 
 echo ""
 echo "----------------------------"
