@@ -1,0 +1,4 @@
+TODO: write the WAF_DETECT_STAGE stage.
+TODO: write the WAF_TAMPER_STAGE stage.
+TODO: write the SQLMAP_STAGE stage.
+TODO: write the REPORT_STAGE stage.
