@@ -3,7 +3,8 @@
 # From jesuiscamille, and a part of the AutoSQLi project
 # Not the best piece of code I ever made, but do the job pretty well
 # I should do some adjustement on the ddgr and googler path thing
-# you should see a dorkoutput.txt file sitting on your $(pwd) after running this :)
+# you should see a dorkoutput.txt file sitting on your $(pwd)
+# after running this :)
 import subprocess
 import json
 import time
@@ -12,17 +13,20 @@ import time
 ddgr_path = "ddgr/ddgr"
 googler_path = "googler/googler"
 
+
 def main():
     filename = input("Enter your dork file name: ")
     print("Reading " + filename + " ...")
     # filename = "testdorks.txt"
     dorkFromFile(filename)
 
+
 def dorkFromFile(filename):
     f = open(filename, 'r')
-    lines = f.readlines() # read all the lines of the file into 'lines'
+    lines = f.readlines()   # read all the lines of the file into 'lines'
     f.close()
     dorkLines(lines)
+
 
 def dorkLines(lines):
     # remove annoying trailing characters
@@ -35,9 +39,10 @@ def dorkLines(lines):
         index += 1
 
     results = []
+    result_clean = []
     # dorking !
     for dork in lines:
-        if google_ban == True and duck_ban == True:
+        if google_ban is True and duck_ban is True:
             break
 
         print(" |__ dork: " + dork)
@@ -49,7 +54,8 @@ def dorkLines(lines):
                 result_clean = json.loads(result)
             except:
                 google_ban = True
-                print("Google banned us, but don't worry, it's temporary")
+                print("Google may have banned us\
+                      , but don't worry, it's temporary")
             for x in result_clean:
                 url = x['url']
                 writeToFile(url)
@@ -62,7 +68,8 @@ def dorkLines(lines):
                 result_clean = json.loads(result)
             except:
                 duck_ban = True
-                print("DuckduckGo banned us, but don't worry, it's temporary")
+                print("DuckduckGo may have banned us, \
+                      but don't worry, it's temporary")
 
             for x in result_clean:
                 url = x['url']
@@ -84,15 +91,20 @@ def execute(command):
     result = subprocess.run(command, stdout=subprocess.PIPE)
     return result.stdout.decode('utf-8')
 
+
 def googleSearch(dork):
     """ dork shall be a string which contains... a dork. """
     """ returns the google json response for the specified dork """
     return execute([googler_path, "-n", "100", dork, "--noprompt", "--json"])
 
+
 def duckSearch(dork):
     """ dork shall be a string which contains... a dork. """
     """ returns the duckduckgo json response for the specified dork """
-    return execute([ddgr_path, dork, "--unsafe", "--json", "--np", "--num", "25"])
+    return execute([ddgr_path,
+                    dork,
+                    "--unsafe", "--json", "--np", "--num", "25"])
+
 
 def writeToFile(text):
     """ write text to dorkoutput.txt """
@@ -100,6 +112,7 @@ def writeToFile(text):
     output.write(text)
     output.write('\n')
     output.close()
+
 
 if __name__ == "__main__":
     main()

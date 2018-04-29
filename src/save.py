@@ -1,17 +1,14 @@
 # From AutoSQLi
 
 from . import log
+from . import stages
+
 import pickle
 
-DORK_STAGE = 0          # getting urls from dork(s)
-WAF_DETECT_STAGE = 1    # detecting targets protected by a WAF
-WAF_TAMPER_STAGE = 2    # getting tampers for targets
-SQLMAP_STAGE = 3        # sqlmapping targets
-REPORT_STAGE = 4        # reporting vulnerable websites
 
 class Save:
     targets_to_test = []
-    stage = DORK_STAGE  # getting urls from dork(s)
+    stage = stages.DORK_STAGE  # getting urls from dork(s)
 
     def exportSave(self, path):
         """ export this class object to a file  """
@@ -20,6 +17,12 @@ class Save:
         log.debug("exportSave path: " + path)
         pickle.dump(self, open(path, "wb"))
         log.debug("dumped and written to " + path)
+
+    def simpleExportSave(self):
+        """ same function as exportSave but uses "autosqli.save" as   """
+        """ the default path                                            """
+        self.exportSave("autosqli.save")
+
 
 def importSave(path):
     log.debug("importSave called")

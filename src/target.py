@@ -19,3 +19,5 @@ def urls_to_targets(urls):
     target_list = []
     for url in urls:
         target_list.append(Target(url))
+
+    return target_list
