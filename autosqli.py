@@ -16,10 +16,10 @@ def nextStage(args):
     global current_save
 
     if current_save.stage == stages.DORK_STAGE:     # if in dork stage
-        dorkStage(args)               # launch the dork stage
+        current_save.targets_to_test = dorkStage(args)  # launch the dork stage
 
     current_save.stage += 1
-    return current_save.stage
+    log.debug("New stage number: " + str(current_save.stage))
 
 
 def main():
@@ -27,12 +27,21 @@ def main():
     args = argument_parse()
     log.info("Welcome into AutoSQLi !")
 
-    checks.saveChecks(args)         # checks if a save is present
+    # check if a save is already present, and if no, create a new one
+    current_save = checks.saveChecks(args, current_save)
+    log.debug("current_save.stage in main(): " + str(current_save.stage))
+
     while True:
         # do the current stage and increment
+        log.debug("Getting into the next stage")
         nextStage(args)
         # backup the current state (into autosqli.save)
         current_save.simpleExportSave()
+        log.debug("save exported")
+        if current_save.stage > stages.REPORT_STAGE:
+            break
+
+    log.info("Goodbye !")
 
     # WAF_DETECT_STAGE =============================
 

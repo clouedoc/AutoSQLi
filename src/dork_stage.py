@@ -24,19 +24,11 @@ def getDorks(args):
     return dorks
 
 
-def saveTargets(targets):
-    global current_save
-    for target in targets:
-        log.debug("appending " + target.url)
-        current_save.targets_to_test.append(target)
-
-
 def dorkStage(args):
-    global current_save
     dorks = getDorks(args)
     # search using findDorks.py ( which just search the dorks using google )
     urls = search_dork(dorks)
 
     # convert urls to targets
     targets_to_test = urls_to_targets(urls)
-    saveTargets(targets_to_test)
+    return targets_to_test

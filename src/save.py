@@ -27,4 +27,4 @@ class Save:
 def importSave(path):
     log.debug("importSave called")
     log.debug("importSave path: " + path)
-    return pickle.load(open(path, "r"))
+    return pickle.load(open(path, "rb"))

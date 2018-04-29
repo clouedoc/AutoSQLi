@@ -50,12 +50,15 @@ def dorkLines(lines):
         if not google_ban:
             print("   |__ googly dorking...")
             result = googleSearch(dork)
-            try:
-                result_clean = json.loads(result)
-            except:
-                google_ban = True
-                print("Google may have banned us\
-                      , but don't worry, it's temporary")
+
+            # TODO: google ban handling
+            result_clean = json.loads(result)
+#            # try:
+#                # result_clean = json.loads(result)
+#            # except:
+#                # google_ban = True
+#                # print("Google may have banned us\
+#                      # , but don't worry, it's temporary")
             for x in result_clean:
                 url = x['url']
                 writeToFile(url)
@@ -64,12 +67,15 @@ def dorkLines(lines):
         if not duck_ban:
             print("   |__ ducky dorking...")
             result = duckSearch(dork)
-            try:
-                result_clean = json.loads(result)
-            except:
-                duck_ban = True
-                print("DuckduckGo may have banned us, \
-                      but don't worry, it's temporary")
+            result_clean = json.loads(result)
+
+#            # TODO: ducky ban handling
+#            # try:
+#                # result_clean = json.loads(result)
+#            # except:
+#                # duck_ban = True
+#                # print("DuckduckGo may have banned us, \
+#                      # but don't worry, it's temporary")
 
             for x in result_clean:
                 url = x['url']
