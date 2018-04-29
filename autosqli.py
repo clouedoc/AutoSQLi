@@ -1,26 +1,40 @@
 #!/usr/bin/env python3
-import argparse
+import os.path
+from time import sleep
 
-from src import log
-from src import findDorks
+from src import log             # provides log.info/debug/warning/critical
+from src import findDorks       # provides findDorks.dorkLines(dorks)
+from src.parse_args import argument_parse # provides argument_parse()
+from src.save import Save       # provides Save() [class]
+from src.save import importSave # provides importSave(path)
+
+autosploit_save = Save()
 
 def search_dork(dorks):
     return findDorks.dorkLines(dorks)
 
-def argument_parse():
-    parser = argparse.ArgumentParser(
-            usage="python autosqli.py [-d DORK] [-f DORKFILE]",
-            description="An automatic SQL Injection tool"
-            )
-
-    parser.add_argument("-f", "--dork-file", metavar="dorkfile.txt", dest="dorkfile", help="get your dorks from a file", default=None)
-    parser.add_argument("-d", "--dork", metavar="site:cn inurl:index.php?id=", dest="dork", help="specify an unique dork to be used", default=None)
-    return parser.parse_args()
-    
-
 def main():
     args = argument_parse()
     log.info("Welcome into AutoSQLi !")
+
+    # checking if -r is used ( to resume from autosploit.save )
+    if args.resume == True: # if the user wants to resume
+        log.info("Using the previously created save...")
+        # check if there is a save file
+        if os.path.isfile("autosploit.save") == True:
+            importSave("autosploit.save")
+        else:
+            log.critical("The save file doesn't exists ! (autosploit.save)")
+            exit(3) # save file error
+    elif os.path.isfile("autosploit.save") == True: # if a save exists
+            log.warning("There is a save file in this directory")
+            log.warning("If you don't quit now, this file will be erased !")
+            log.warning("use -r to resume")
+            log.info("waiting 10 seconds for user input")
+            sleep(10)
+    else:
+        log.info("A save file will be created (autosploit.save)")
+
     if args.dorkfile != None and args.dork != None:
         log.critical("-f (--dork-file) and -d (--dork) are incompatible")
         exit(1)
@@ -34,9 +48,16 @@ def main():
     else:
         dorks = [args.dork]
 
+    ###### END OF ARGUMENT PARSING #######
+
     # search using findDorks.py ( which just search the dorks using google )
     urls_to_test = search_dork(dorks) 
 
+    # TODO:
+    # convert urls_to_test into some targets
+    # save the targets
+
+    # WTF TODO:
     # now, we have a list of urls to test.
     # we gonna take all the urls one by one and check if they have a WAF.
     #   if yes, find some working tamper scripts using WhatWaf
