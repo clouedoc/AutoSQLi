@@ -5,9 +5,9 @@
 # I should do some adjustement on the ddgr and googler path thing
 # you should see a dorkoutput.txt file sitting on your $(pwd)
 # after running this :)
-import subprocess
 import json
 import time
+from . import execute
 
 # here is the path thing
 ddgr_path = "ddgr/ddgr"
@@ -89,13 +89,6 @@ def dorkLines(lines):
     print("check out ./dorkoutput.txt :3")
     print("Thx 4 d0rk1ng ! Have fun")
     return results
-
-
-def execute(command):
-    """ command shall be an array """
-    """ returns the stdout of command """
-    result = subprocess.run(command, stdout=subprocess.PIPE)
-    return result.stdout.decode('utf-8')
 
 
 def googleSearch(dork):

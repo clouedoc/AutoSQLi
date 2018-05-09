@@ -6,6 +6,7 @@ from src.save import Save           # provides Save() [class]
 from src import stages
 from src import checks
 from src.dork_stage import dorkStage
+from src.waf_detect_stage import wafDetectStage
 
 current_save = Save()
 
@@ -16,7 +17,13 @@ def nextStage(args):
     global current_save
 
     if current_save.stage == stages.DORK_STAGE:     # if in dork stage
+        log.debug("Launching the dork stage")
         current_save.targets_to_test = dorkStage(args)  # launch the dork stage
+
+    if current_save.stage == stages.WAF_DETECT_STAGE:
+        log.debug("Launching the waf stage")
+        current_save.targets_to_test = \
+            wafDetectStage(args, current_save.targets_to_test)
 
     current_save.stage += 1
     log.debug("New stage number: " + str(current_save.stage))

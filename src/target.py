@@ -13,6 +13,10 @@ class Target:
         """ create a new Target """
         self.url = url
 
+    def setWaf(self, isProtectedByWaf):
+        """ specify if the target is protected by a WAF """
+        self.is_protected_by_waf = isProtectedByWaf
+
 
 def urls_to_targets(urls):
     """ convert an url array to a Target array """
