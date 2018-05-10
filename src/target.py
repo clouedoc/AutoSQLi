@@ -5,6 +5,7 @@ class Target:
     url = ""
     waf_detection_done = False
     is_protected_by_waf = False
+    waf_name = ""
     working_tampers = []
     sqlmap_exploitation_done = False
     is_vulnerable = False
@@ -12,10 +13,6 @@ class Target:
     def __init__(self, url):
         """ create a new Target """
         self.url = url
-
-    def setWaf(self, isProtectedByWaf):
-        """ specify if the target is protected by a WAF """
-        self.is_protected_by_waf = isProtectedByWaf
 
 
 def urls_to_targets(urls):
