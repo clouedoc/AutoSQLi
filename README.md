@@ -6,7 +6,9 @@
 	- from the command line ( one dork ): YES
 	- from a file: NO
 	- from an interactive wizard: YES
-- Rest: NO
+- Waffing
+	- TOTALLY WIP
+- Rest: NOPE
 
 ## The Plan
 
@@ -33,3 +35,7 @@ Yeah, I know.
 Yeah, I know.
 
 TODO: please someone correct those wrongly spelled words and conjugational errors. I'm on Neovim right now and there is no auto-spelling check.
+
+## Popularity note ( 2018-05-10 )
+
+When I woke up this morning, someone said that a guy by the name of NullArray twitted about this project. 11 stars later, it makes me want to finish it more than ever !
