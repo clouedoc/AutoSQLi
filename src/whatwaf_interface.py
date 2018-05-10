@@ -2,6 +2,7 @@ from .execute import execute
 from . import paths
 
 
+# this specifies the time that whatwaf is allowed to use to scan a target
 WHATWAF_TIMEOUT = 60
 
 
@@ -25,6 +26,7 @@ def whatwaf_url(url):
 
 
 def whatwaf_target(target):
-    """ add whatwaf details to a target """
-    # target
+    """ add whatwaf details to a target and returns it """
     whatwaf_report = whatwaf_url(target.url)
+    # TODO: analyse the report to return the target
+    return target
