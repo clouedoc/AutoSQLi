@@ -7,8 +7,18 @@
 	- from a file: NO
 	- from an interactive wizard: YES
 - Waffing
-	- Waiting for [WhatWaf](https://github.com/Ekultek/WhatWaf/) to implement proper ways of getting it's output programatically
+	- Thanks to Eku, WhatWaf now has a JSON output function.
+	- So it's mostly finished :)
+- Sqlmapping
+	- I'll look if there is some sort of sqlmap API, because I don't wanna use `execute` this time (:
+	- Sqlmap is cool
 - Rest: NOPE
+
+## TODO:
+
+Could someone add a proper handling of the log ? I mean, logging with different levels, cleanly ^^ ?
+Also, could someone add an option to translate the save ( which is in pickle format ) to a json/csv save ?
+Thanks :)
 
 ## The Plan
 
