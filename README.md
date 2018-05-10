@@ -7,7 +7,7 @@
 	- from a file: NO
 	- from an interactive wizard: YES
 - Waffing
-	- TOTALLY WIP
+	- Waiting for [WhatWaf](https://github.com/Ekultek/WhatWaf/) to implement proper ways of getting it's output programatically
 - Rest: NOPE
 
 ## The Plan
