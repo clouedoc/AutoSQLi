@@ -53,7 +53,7 @@ When I woke up this morning, someone said that a guy by the name of NullArray tw
 
 ## Contribution Note
 
-Friday, the 11th of May, the first pull request to this project was sent by [@iyanuashiri](https://github.com/iyanuashiri).
+Friday, the 11th of May, the first pull request of this project was sent by [@iyanuashiri](https://github.com/iyanuashiri).
 
 ## sTaTiStIcS
 
