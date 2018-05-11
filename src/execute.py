@@ -17,7 +17,6 @@ def execute(command, cwd=None, timeout=None, yes=None):
     if yes is not None:
         pre_command.append("yes |" if yes else "yes n |")
 
-    import pdb; pdb.set_trace()  # XXX BREAKPOINT
     for arg in command:
         pre_command.append(arg)
 
@@ -31,7 +30,6 @@ def execute(command, cwd=None, timeout=None, yes=None):
     shellmode = True if yes is not None else None
     log.debug("command: {}; cwd: {}; timeout: {}; shellmode: {}".format(
         final_command, cwd, timeout, shellmode))
-    import pdb; pdb.set_trace()  # XXX BREAKPOINT
     result = subprocess.run(final_command, stdout=subprocess.PIPE, cwd=cwd,
                             timeout=timeout,
                             shell=shellmode)
