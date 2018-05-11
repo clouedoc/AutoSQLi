@@ -1,42 +1,35 @@
-from .execute import execute
-from . import paths
 import json
+
+from . import paths
+from . import log
+
 from .strings import BANNED_TAMPERS
-
-
-# this specifies the time that whatwaf is allowed to use to scan a target
-# WHATWAF_TIMEOUT = 60
-
-
-# def isProtectedByWaf(url):
-# # """ run a rapid WhatWaf check to verify if a \
-#    # target is protected by a WAF """
-# # """ returns True if a protection is detected """
-# # """ otherwise returns false """
-# # whatwafResponse = execute(["python2.7",
-#                           # paths.WHATWAF_NAME,
-#                           # "-u", url, "--ra", "--hide",
-#                           # "--skip"], paths.WHATWAF_PATH, WHATWAF_TIMEOUT)
-#
-# # if "no protection identified on target" in whatwafResponse:
-#    # return False  # no protection
-
-def satanize_url(url):
-    """ satanize a url to be used with bash """
-    return "'" + url.replace("'", "\\'")
+from .satanize import remove_thing_url
+from .execute import execute
+from .consts import WHATWAF_VERIFY_NUM
+from .consts import WHATWAF_DEBUG, WHATWAF_DEBUG_REPORT
 
 
 def whatwaf_url(url):
     """ return WhatWaf's results for a specified url """
-    return execute(["python2.7", paths.WHATWAF_NAME, "-u", satanize_url(url),
-                    "--ra", "--hide"],
+    log.debug("Launching WhatWaf on {}".format(url))
+    return execute(["python2.7", paths.WHATWAF_NAME, "-u",
+                    remove_thing_url(url), "--ra", "--hide", "--json",
+                    "--verify-num", str(WHATWAF_VERIFY_NUM)],
                    paths.WHATWAF_PATH, None, True)
 
 
 def whatwaf_target(target):
     """ add whatwaf details to a target and returns it """
 
-    whatwaf_report = whatwaf_url(target.url)
+    # if WHATWAF_DEBUG is True, use the sample WhatWaf report (from consts.py)
+    if WHATWAF_DEBUG:
+        log.debug("WhatWaf debug mode is on. To disable, " +
+                  "check src/target.py ! ( WHATWAF_DEBUG )")
+
+    whatwaf_report = WHATWAF_DEBUG_REPORT if WHATWAF_DEBUG else \
+        whatwaf_url(target.url)
+
     if "no protection identified on target" in whatwaf_report:
         target.is_protected_by_waf = False
     elif '-'*30 in whatwaf_report:
@@ -49,7 +42,9 @@ def whatwaf_target(target):
         # assign the json to the target
         target.is_protected_by_waf = json_report["is protected"]
         target.waf_name = json_report["identified firewall"]
-        for tamper in json_report["apparent working tampers"]:
+        tampers = json_report["apparent working tampers"] if \
+            json_report["apparent working tampers"] is not None else []
+        for tamper in tampers:
             if tamper not in BANNED_TAMPERS:
                 target.working_tamper.append(tamper)
 

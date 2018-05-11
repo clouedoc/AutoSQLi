@@ -2,7 +2,7 @@ from . import log
 from .whatwaf_interface import whatwaf_target
 
 
-def wafDetectStage(targets):
+def wafDetectStage(args, targets):
     """ take an array of targets and associate WhatWaf properties with them """
     waffed_targets = []
 

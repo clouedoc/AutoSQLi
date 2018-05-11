@@ -1,5 +1,7 @@
 # From AutoSQLi
 import subprocess
+from . import log
+from .satanize import satanize_for_bash
 
 
 def execute(command, cwd=None, timeout=None, yes=None):
@@ -10,15 +12,27 @@ def execute(command, cwd=None, timeout=None, yes=None):
     """ Timeout is the timeout of the command """
     """ yes = True: constantly feed stdin with a "y" """
     """ yes = False: constantly feed stdin with a "n" """
-    finalCommand = []
+    pre_command = []
 
-    if yes != None:
-        finalCommand.append("yes |" if yes else "yes n |")
+    if yes is not None:
+        pre_command.append("yes |" if yes else "yes n |")
 
+    import pdb; pdb.set_trace()  # XXX BREAKPOINT
     for arg in command:
-        finalCommant.append(arg)
+        pre_command.append(arg)
 
-    result = subprocess.run(finalCommand, stdout=subprocess.PIPE, cwd=cwd,
+    assembled_pre_command = ""
+    for arg in pre_command:
+        assembled_pre_command += " " + arg
+
+    final_command = ["bash -c {}".format(
+        satanize_for_bash(assembled_pre_command))]
+
+    shellmode = True if yes is not None else None
+    log.debug("command: {}; cwd: {}; timeout: {}; shellmode: {}".format(
+        final_command, cwd, timeout, shellmode))
+    import pdb; pdb.set_trace()  # XXX BREAKPOINT
+    result = subprocess.run(final_command, stdout=subprocess.PIPE, cwd=cwd,
                             timeout=timeout,
-                            shell=True if yes != None else None)
+                            shell=shellmode)
     return result.stdout.decode('utf-8')

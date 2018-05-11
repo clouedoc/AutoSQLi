@@ -32,6 +32,10 @@ def nextStage(args):
 def main():
     global current_save
     args = argument_parse()
+    if args.debug:
+        log.debug("ok boss, launching the debug mode")
+        import pdb; pdb.set_trace()  # XXX BREAKPOINT
+
     log.info("Welcome into AutoSQLi !")
 
     # check if a save is already present, and if no, create a new one
