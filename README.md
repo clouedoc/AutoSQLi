@@ -9,6 +9,7 @@
 - Waffing
 	- Thanks to Eku, WhatWaf now has a JSON output function.
 	- So it's mostly finished :)
+	- UPDATE: WhatWaf is completly working with AutoSQLi. Sqlmap is the next big step
 - Sqlmapping
 	- I'll look if there is some sort of sqlmap API, because I don't wanna use `execute` this time (:
 	- Sqlmap is cool
@@ -49,3 +50,14 @@ TODO: please someone correct those wrongly spelled words and conjugational error
 ## Popularity note ( 2018-05-10 )
 
 When I woke up this morning, someone said that a guy by the name of NullArray tweeted about this project. 11 stars later, it makes me want to finish it more than ever !
+
+## Contribution Note
+
+Friday, the 11th of May, the first pull request to this project was sent by [@iyanuashiri](https://github.com/iyanuashiri).
+
+## sTaTiStIcS
+
+###  2018-05-11
+
+Today, we are at 15 stars, and got our first pull request. The number of cloners and unique viewers is decreasing with the time, but I noticed that someone followed a link from `web.telegram.org`. Well, those referer statistics are cool.
+I also finished implementing WhatWaf :)
