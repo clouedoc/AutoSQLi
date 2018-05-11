@@ -9,9 +9,10 @@ class Target:
     working_tampers = []
     sqlmap_exploitation_done = False
     is_vulnerable = False
+    sqlmap_logs = []
 
     def __init__(self, url):
-        """ create a new Target """
+        """ create a new Target from a url"""
         self.url = url
 
 
