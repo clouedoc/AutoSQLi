@@ -1,6 +1,7 @@
 from .target import urls_to_targets
 from . import log
 from . import findDorks           # provides findDorks.dorkLines(dorks)
+from .save import current_save
 
 
 def search_dork(dorks):
@@ -25,10 +26,16 @@ def getDorks(args):
 
 
 def dorkStage(args):
-    dorks = getDorks(args)
-    # search using findDorks.py ( which just search the dorks using google )
+    """ takes args of the program and modify the curren_save properties """
+    """ ya, might be a little too sketchy for a function description """
+
+    global current_save
+    dorks = getDorks(args)  # get dorks from the args provided
+    # get results from the dorks
     urls = search_dork(dorks)
 
     # convert urls to targets
     targets_to_test = urls_to_targets(urls)
-    return targets_to_test
+    # append our targets to the current_save
+    for target in targets_to_test:
+        current_save.targets_to_test.append(target)
