@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
+# Adapted to the new save system
 
-# From jesuiscamille, and a part of the AutoSQLi project
-# Not the best piece of code I ever made, but do the job pretty well
-# I should do some adjustement on the ddgr and googler path thing
-# you should see a dorkoutput.txt file sitting on your $(pwd)
-# after running this :)
+# Ugly code I now.
+
 import json
 import time
 from . import execute
+from . import save
+from .target import Target
 
 # here is the path thing
 ddgr_path = "ddgr/ddgr"
@@ -59,10 +59,10 @@ def dorkLines(lines):
 #                # google_ban = True
 #                # print("Google may have banned us\
 #                      # , but don't worry, it's temporary")
+
             for x in result_clean:
-                url = x['url']
-                writeToFile(url)
-                results.append(url)
+                # url = x['url']
+                save.addTarget(Target(x['url']))
 
         if not duck_ban:
             print("   |__ ducky dorking...")
@@ -78,9 +78,8 @@ def dorkLines(lines):
 #                      # but don't worry, it's temporary")
 
             for x in result_clean:
-                url = x['url']
-                writeToFile(url)
-                results.append(url)
+                # url = x['url']
+                save.addTarget(Target(x['url']))
 
         # waiting 15 seconds to not get caught
         print(" -- waiting 15 seconds --")
@@ -103,14 +102,6 @@ def duckSearch(dork):
     return execute([ddgr_path,
                     dork,
                     "--unsafe", "--json", "--np", "--num", "25"])
-
-
-def writeToFile(text):
-    """ write text to dorkoutput.txt """
-    output = open("dorkoutput.txt", 'a')
-    output.write(text)
-    output.write('\n')
-    output.close()
 
 
 if __name__ == "__main__":

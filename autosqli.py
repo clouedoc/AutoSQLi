@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
+# Adapted to the new save system
 
 from src import log             # provides log.info/debug/warning/critical
 from src.parse_args import argument_parse  # provides argument_parse()
 # from src.save import Save           # provides Save() [class]
-from src.save import current_save
+from src import save
 from src import stages
-from src import checks
-from src.dork_stage import dorkStage
-from src.waf_detect_stage import wafDetectStage
 
 # TODO: create a classes system for stages ( base stage class and sub class
 # stages. I don't really know how I would do this for now, but fonctionnal
@@ -20,32 +18,8 @@ from src.waf_detect_stage import wafDetectStage
 # FIXME: once the save system for the waf stage is fixed, make sure that it is
 # for the dork stage too !
 
-# TODO: URGENT: rebuild the save system with ZODB. check src/checks.py and
-# src/save.py to reconstruct the api
-
-
-def nextStage(args):
-    """ execute the current stage out of current_save   """
-    """ increase the stage number after it's execution  """
-    global current_save
-
-    if current_save.stage == stages.DORK_STAGE:     # if in dork stage
-        log.debug("Launching the dork stage")
-        dorkStage(args)  # launch the dork stage
-
-    if current_save.stage == stages.WAF_DETECT_STAGE:
-        log.debug("Launching the waf stage")
-        wafDetectStage(args)
-
-    if current_save.stage == stages.SQLMAP_STAGE:
-        pass  # TODO: call the sqlmap stage
-
-    log.debug("New stage number: " + str(current_save.stage))
-
 
 def main():
-    global current_save
-
     args = argument_parse()
 
     if args.debug:
@@ -53,20 +27,21 @@ def main():
         import pdb; pdb.set_trace()  # XXX BREAKPOINT
 
     log.info("Welcome into AutoSQLi !")
+    log.debug("Checking save...")
+    save.saveStartup(args)
+    log.debug("Loading save...")
+    save.importSave()
 
-    # check if a save is already present, and if no, create a new one
-    current_save = checks.saveChecks(args, current_save)  # set current save
-    log.debug("current_save.stage in main(): " + str(current_save.stage))
-    import pdb; pdb.set_trace()  # XXX BREAKPOINT
+    log.debug("current_save.stage in main(): " + str(save.getStage()))
 
     while True:
         # do the current stage and increment
         log.debug("Getting into the next stage")
-        nextStage(args)
+        stages.nextStage(args)
         # backup the current state (into autosqli.save)
-        current_save.simpleExportSave()
+        save.writeSave()  # TODO: add a time based saver
         log.debug("save exported")
-        if current_save.stage > stages.REPORT_STAGE:
+        if save.getStage() == stages.REPORT_STAGE:
             break
 
     log.info("Goodbye !")

@@ -26,7 +26,7 @@ def argument_parse():
                         "--resume",
                         action="store_true",
                         dest="resume",
-                        help="resume from the save file (autosploit.save)",
+                        help="resume from the save file (autosqli.save)",
                         )
 
     parser.add_argument("--debug",

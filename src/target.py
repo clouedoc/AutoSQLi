@@ -1,5 +1,6 @@
 # From AutoSQLi
 
+import uuid
 
 class Target:
     url = ""
@@ -14,6 +15,7 @@ class Target:
     def __init__(self, url):
         """ create a new Target from a url"""
         self.url = url
+        self.uuid = uuid.uuid4()  # random UUID ( used to update in a list )
 
 
 def urls_to_targets(urls):

@@ -1,60 +1,97 @@
 # From AutoSQLi
 
 # from . import log
-# from . import stages
+from . import stages
+from . import log
 
-import ZODB, ZODB.FileStorage
-import transaction
+import pickle
+from os.path import isfile
 
-# import pickle
+SAVE_PATH = 'autosqli.save'
 
-
-# choisi le fichier de sauvegarde
-storage = ZODB.FileStorage.FileStorage('autosqli.save')
-# crée un objet db
-db = ZODB.DB(storage)
-# crée une connexion à la bdd
-connection = db.open()
-# associe un objet à cette connexion
-save = connection.root
-# sauve cet objet et tout ses attributs
-transaction.commit()
-
-# def importSave(path):
-#     """ return a Save from a pickle dump of a Save instance """
-#     log.debug("importSave called")
-#     log.debug("importSave path: " + path)
-#     return pickle.load(open(path, "rb"))
-
-#  # def importSave(path):
-#      # """ return a Save from a pickle dump of a Save instance """
-#      # log.debug("importSave called")
-#      # log.debug("importSave path: " + path)
-#      # return pickle.load(open(path, "rb"))
+# this is the default save
+save = {
+    'targets': [],
+    'stage': stages.DORK_STAGE
+}
 
 
-#  class Save(persistent.Persistent):
-#      targets_to_test = []
-#      stage = stages.DORK_STAGE  # getting urls from dork(s)
-#
-#  #    # def __init__(self):
-#  #        # self.targets_to_test = []
-#  #        # self.stage = stages.DORK_STAGE  # getting urls from dork(s)
-#
-#      def exportSave(self, path):
-#          """ export this class object to a file  """
-#          """ specified in path                   """
-#          log.debug("exportSave called")
-#          log.debug("exportSave path: " + path)
-#          pickle.dump(self, open(path, "wb"))
-#          log.debug("dumped and written to " + path)
-#
-#      def simpleExportSave(self):
-#          """ same function as exportSave but uses "autosqli.save" as   """
-#          """ the default path                                            """
-#          self.exportSave("autosqli.save")
+def writeSave():
+    """ write in picle format the storage var """
+    with open(SAVE_PATH, 'wb') as f:
+        pickle.dump(save, f, pickle.HIGHEST_PROTOCOL)
 
 
-# here is defined the global save of the program.
-# current_save = Save()
+def importSave():
+    """ write autosqli.save to the current global save dict """
+    global save
 
+    with open(SAVE_PATH, 'rb') as f:
+        save = pickle.load(f)
+
+
+def addTarget(target):
+    """ add a target to the current global save """
+    global save
+
+    save['targets'].append(target)
+
+
+def removeTarget(target):
+    """ remove a target of the current global save """
+    global save
+
+    save['targets'].remove(target)
+
+
+def setStage(stage):
+    """ set the current stage of the current global save """
+    global save
+    save['stage'] = stage
+
+
+def incrementStage():
+    """ increment the current stage of the current global save """
+    global save
+    save['stage'] += 1
+
+
+def getStage():
+    """ returns the current stage of the save """
+    return save['stage']
+
+
+def saveStartup(args):
+    """ if no save is detected, create a new one """
+    """ if -r is used, load from save """
+    """ else, ask user to confirm they want to erase their save """
+    if not isfile(SAVE_PATH):
+        log.warning("It seems that there is no save here. Creating one.")
+        writeSave()
+    elif args.resume:
+        log.info("Resuming from save (-r)...")
+        importSave()
+        log.info("Save imported !")
+    else:
+        log.warning("It seems there is a save here. Turn on -r to use it.")
+        input("Press enter to continue ( this will erase your save ).")
+        writeSave()
+
+
+def getUnwaffedTarget():
+    """ return a target which needs to be analyzed by WhatWaf """
+    for target in save['targets']:
+        if not target.waf_detection_done:
+            return target
+
+
+def updateTarget(target):
+    """ update an already existing target """
+    index = 0
+    targetUuid = target.uuid
+    for toModifyTarget in save['targets']:
+        if targetUuid == toModifyTarget.uuid:
+            save['targets'][index] = target
+            return
+
+        index += 1
