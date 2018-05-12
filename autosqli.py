@@ -15,9 +15,6 @@ from src import stages
 # TODO: it would be nice if everything could be moved in specific classes, like
 # a `nextStage.py` file and a `main.py` file in the `src` directory
 
-# FIXME: once the save system for the waf stage is fixed, make sure that it is
-# for the dork stage too !
-
 
 def main():
     args = argument_parse()
@@ -35,6 +32,7 @@ def main():
     log.debug("current_save.stage in main(): " + str(save.getStage()))
 
     while True:
+        import pdb; pdb.set_trace()  # XXX BREAKPOINT
         # do the current stage and increment
         log.debug("Getting into the next stage")
         stages.nextStage(args)

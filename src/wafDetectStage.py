@@ -9,6 +9,10 @@ def wafDetectStage(args):
 
     while True:
         target = save.getUnwaffedTarget()
-        log.debug("Waffing {}".format(target.url))
-        target = whatwaf_target(target)
-        save.updateTarget(target)
+        if target is not None:
+            log.debug("Waffing {}".format(target.url))
+            target = whatwaf_target(target)
+            save.updateTarget(target)
+        else:
+            log.debug("All targets got waffed !")
+            break
