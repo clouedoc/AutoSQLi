@@ -85,8 +85,6 @@ def dorkLines(lines):
         print(" -- waiting 15 seconds --")
         time.sleep(15)
 
-    print("check out ./dorkoutput.txt :3")
-    print("Thx 4 d0rk1ng ! Have fun")
     return results
 
 

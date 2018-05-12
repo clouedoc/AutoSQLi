@@ -24,8 +24,8 @@ def whatwaf_target(target):
 
     # if WHATWAF_DEBUG is True, use the sample WhatWaf report (from consts.py)
     if WHATWAF_DEBUG:
-        log.debug("WhatWaf debug mode is on. To disable, " +
-                  "check src/target.py ! ( WHATWAF_DEBUG )")
+        log.warning("WhatWaf debug mode is on. To disable, " +
+                    "check src/target.py ! ( WHATWAF_DEBUG )")
 
     whatwaf_report = WHATWAF_DEBUG_REPORT if WHATWAF_DEBUG else \
         whatwaf_url(target.url)

@@ -27,7 +27,9 @@ def execute(command, cwd=None, timeout=None, yes=None):
     final_command = ["bash -c {}".format(
         satanize_for_bash(assembled_pre_command))]
 
-    shellmode = True if yes is not None else None
+    # shellmode = True if yes is not None else None
+    import pdb; pdb.set_trace()  # XXX BREAKPOINT
+    shellmode = True
     log.debug("command: {}; cwd: {}; timeout: {}; shellmode: {}".format(
         final_command, cwd, timeout, shellmode))
     result = subprocess.run(final_command, stdout=subprocess.PIPE, cwd=cwd,

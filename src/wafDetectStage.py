@@ -6,7 +6,6 @@ from . import save
 
 def wafDetectStage(args):
     """ add details of the targets of the save """
-    log.warning("waf_detect_stage: see the comment inside the py file plz")
 
     while True:
         target = save.getUnwaffedTarget()

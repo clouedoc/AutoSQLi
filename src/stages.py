@@ -31,4 +31,4 @@ def nextStage(args):
         pass  # TODO: call the sqlmap stage
 
     save.incrementStage()
-    log.debug("New stage number: " + str(current_stage))
+    log.debug("New stage number: " + str(save.getStage()))
