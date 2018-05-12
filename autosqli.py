@@ -21,7 +21,8 @@ def main():
 
     if args.debug:
         log.debug("ok boss, launching the debug mode")
-        import pdb; pdb.set_trace()  # XXX BREAKPOINT
+        import pdb
+        pdb.set_trace()  # XXX BREAKPOINT
 
     log.info("Welcome into AutoSQLi !")
     log.debug("Checking save...")
@@ -32,7 +33,10 @@ def main():
     log.debug("current_save.stage in main(): " + str(save.getStage()))
 
     while True:
-        import pdb; pdb.set_trace()  # XXX BREAKPOINT
+        if args.debug:
+            log.debug("activating breakpoint")
+            pdb.set_trace()
+
         # do the current stage and increment
         log.debug("Getting into the next stage")
         stages.nextStage(args)

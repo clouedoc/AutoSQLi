@@ -80,9 +80,12 @@ def saveStartup(args):
 
 def getUnwaffedTarget():
     """ return a target which needs to be analyzed by WhatWaf """
+    """ if no target is found, return None """
     for target in save['targets']:
         if not target.waf_detection_done:
             return target
+
+    return None
 
 
 def updateTarget(target):

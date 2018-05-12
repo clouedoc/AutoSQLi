@@ -75,7 +75,7 @@ def dorkLines(lines):
 #            # except:
 #                # duck_ban = True
 #                # print("DuckduckGo may have banned us, \
-#                      # but don't worry, it's temporary")
+#                       #but don't worry, it's temporary")
 
             for x in result_clean:
                 # url = x['url']
