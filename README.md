@@ -1,7 +1,15 @@
-# AutoSQLi
+# AutoSQLi, **the new way script-kiddies hack websites** ( that's a joke )
+
+# Don't mess up
+
+This project is for demonstration purposes. Nobody should ever run AutoSQLi. Really.
+Hacking into DB's is fun, but you know, there are guys who doesn't want to get their entire work messed up. You don't to make them scratch their hairs, na ?
 
 ## What is working right now
 
+- Save System
+	- there is a complete save system, which can resume even when your pc crashed.
+	- technology is cool
 - Dorking
 	- from the command line ( one dork ): YES
 	- from a file: NO
@@ -61,3 +69,12 @@ Friday, the 11th of May, the first pull request of this project was sent by [@iy
 
 Today, we are at 15 stars, and got our first pull request. The number of cloners and unique viewers is decreasing with the time, but I noticed that someone followed a link from `web.telegram.org`. Well, those referer statistics are cool.
 I also finished implementing WhatWaf :)
+
+### 2018-05-12
+
+As of today, there is 21 stargazers. In fact there is only 4 unique cloners, so I'm wondering if the peoples who stars this repo aren't compulsive-stargazers. NO OFFENSES MEANT :), please, put a star on this repo, I like it.
+The save system got completly modified, because the old one was pretty random.
+The code now have debugging facilities ( a --debug switch ).
+It can dork and automatically WAF websites.
+That's all.
+Damn, creating a piece of glue is quite hard :)
