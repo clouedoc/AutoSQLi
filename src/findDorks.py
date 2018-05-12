@@ -5,7 +5,7 @@
 
 import json
 import time
-from . import execute
+from .execute import execute
 from . import save
 from .target import Target
 
