@@ -5,6 +5,7 @@ from . import save
 from . import log
 from . import dorkStage
 from . import wafDetectStage
+from . import reportStage
 
 DORK_STAGE = 0          # getting urls from dork(s)
 WAF_DETECT_STAGE = 1    # detecting and tampering WAFs
@@ -30,7 +31,7 @@ def launchSlmapStage(args):  # FIXME: implement this plz
 def launchReportStage(args):  # FIXME: implement this plz
     """ execute the report stage ( REPORT_STAGE ) """
     log.debug("Launching the report stage")
-    pass
+    reportStage.reportStage(args)
 
 
 def nextStage(args):

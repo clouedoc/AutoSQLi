@@ -82,7 +82,17 @@ def getUnwaffedTarget():
     """ return a target which needs to be analyzed by WhatWaf """
     """ if no target is found, return None """
     for target in save['targets']:
-        if not target.waf_detection_done:
+        if not target.isWaffed():
+            return target
+
+    return None
+
+
+def getUnsqlmappedTargets():
+    """ return a target which needs to be analyzed by sqlmap """
+    """ if no target is found, return None """
+    for target in save['targets']:
+        if not target.isSqlmapped():
             return target
 
     return None
@@ -98,3 +108,28 @@ def updateTarget(target):
             return
 
         index += 1
+
+
+def getTargets():
+    """ return all targets from the save """
+    return save['targets']
+
+
+def getVulnerableTargets():
+    """ returns all vulnerable targets from the save """
+    vulnerable_list = []
+    for target in save['targets']:
+        if target.isVulnerable():
+            vulnerable_list.append(target)
+
+    return vulnerable_list
+
+
+def getInvulnerableTargets():
+    """ returns all invulnerable targets from the save """
+    invulnerable_list = []
+    for target in save['targets']:
+        if not target.isVulnerable():
+            invulnerable_list.append(target)
+
+    return invulnerable_list
