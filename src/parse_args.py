@@ -35,4 +35,20 @@ def argument_parse():
                         help="activate the debug mode",
                         )
 
+    parser.add_argument("-R",
+                        "--report-only",
+                        action="store_true",
+                        dest="reportOnly",
+                        help="go directly to the report stage on the current"
+                        " save",
+                        )
+
+    parser.add_argument("-D",
+                        "--dork-only",
+                        action="store_true",
+                        dest="dorkOnly",
+                        help="only do the dork stage. Useful when switching "
+                        "IPs to get more results ",
+                        )
+
     return parser.parse_args()
