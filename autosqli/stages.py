@@ -46,10 +46,10 @@ def nextStage(args):
 
     if args.reportOnly:
         launchReportStage(args)
-        return False
+        return_value = False
     elif args.dorkOnly:
         launchDorkStage(args)
-        return False
+        return_value = False
     else:
         if current_stage == DORK_STAGE:  # if in dork stage
             launchDorkStage(args)
@@ -69,4 +69,5 @@ def nextStage(args):
 
         save.incrementStage()
         log.debug("New stage number: " + str(save.getStage()))
-        return return_value
+
+    return return_value
