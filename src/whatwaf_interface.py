@@ -6,8 +6,7 @@ from . import log
 from .strings import BANNED_TAMPERS
 from .satanize import remove_thing_url
 from .execute import execute
-from .consts import WHATWAF_VERIFY_NUM
-from .consts import WHATWAF_DEBUG, WHATWAF_DEBUG_REPORT
+from .consts import WHATWAF_VERIFY_NUM, WHATWAF_DEBUG, WHATWAF_DEBUG_REPORT
 
 
 def whatwaf_url(url):
