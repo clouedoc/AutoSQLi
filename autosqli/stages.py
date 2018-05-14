@@ -1,11 +1,11 @@
 # From AutoSQLi
 # Adapted to the new save system
 
-from . import save
-from . import log
-from . import dorkStage
-from . import wafDetectStage
-from . import reportStage
+from autosqli import save
+from autosqli import log
+from autosqli.dorkStage import dorkStage
+from autosqli.wafDetectStage import wafDetectStage
+from autosqli.reportStage import reportStage
 
 DORK_STAGE = 0  # getting urls from dork(s)
 WAF_DETECT_STAGE = 1  # detecting and tampering WAFs
@@ -15,12 +15,12 @@ REPORT_STAGE = 3  # reporting vulnerable websites
 
 def launchDorkStage(args):
     log.debug("Launching the dork stage")
-    dorkStage.dorkStage(args)
+    dorkStage(args)
 
 
 def launchWafStage(args):
     log.debug("Launching the waf stage")
-    wafDetectStage.wafDetectStage(args)
+    wafDetectStage(args)
 
 
 def launchSlmapStage(args):  # FIXME: implement this plz
@@ -31,7 +31,7 @@ def launchSlmapStage(args):  # FIXME: implement this plz
 def launchReportStage(args):  # FIXME: implement this plz
     """ execute the report stage ( REPORT_STAGE ) """
     log.debug("Launching the report stage")
-    reportStage.reportStage(args)
+    reportStage(args)
 
 
 def nextStage(args):

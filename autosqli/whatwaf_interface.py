@@ -1,12 +1,12 @@
 import json
 
-from . import paths
-from . import log
+from autosqli import paths
+from autosqli import log
 
-from .strings import BANNED_TAMPERS
-from .satanize import remove_thing_url
-from .execute import execute
-from .consts import WHATWAF_VERIFY_NUM, WHATWAF_DEBUG, WHATWAF_DEBUG_REPORT
+from autosqli.strings import BANNED_TAMPERS
+from autosqli.satanize import remove_thing_url
+from autosqli.execute import execute
+from autosqli.consts import WHATWAF_VERIFY_NUM, WHATWAF_DEBUG, WHATWAF_DEBUG_REPORT
 
 
 def whatwaf_url(url):
@@ -25,7 +25,7 @@ def whatwaf_target(target):
     # if WHATWAF_DEBUG is True, use the sample WhatWaf report (from consts.py)
     if WHATWAF_DEBUG:
         log.warning("WhatWaf debug mode is on. To disable, " +
-                    "check src/target.py ! ( WHATWAF_DEBUG )")
+                    "check autosqli/target.py ! ( WHATWAF_DEBUG )")
 
     whatwaf_report = WHATWAF_DEBUG_REPORT if WHATWAF_DEBUG else \
         whatwaf_url(target.url)

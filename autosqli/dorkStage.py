@@ -1,7 +1,7 @@
 # Adapted to the new save system
 # from .target import urls_to_targets
-from . import log
-from . import findDorks  # provides findDorks.dorkLines(dorks)
+from autosqli import log
+from autosqli import findDorks  # provides findDorks.dorkLines(dorks)
 
 # from . import save
 

@@ -1,8 +1,8 @@
 # From AutoSQLi
 
 # from . import log
-from . import stages
-from . import log
+from autosqli import stages
+from autosqli import log
 
 import pickle
 from os.path import isfile

@@ -5,9 +5,9 @@
 
 import json
 import time
-from .execute import execute
-from . import save
-from .target import Target
+from autosqli.execute import execute
+from autosqli import save
+from autosqli.target import Target
 
 # here is the path thing
 ddgr_path = "ddgr/ddgr"

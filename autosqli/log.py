@@ -1,6 +1,6 @@
 # From AutoSQLi
 
-from . import colors
+from autosqli import colors
 
 DEBUG_PREFIX = colors.OKBLUE + "[DEBUG] "
 ERROR_PREFIX = colors.FAIL + "[ERROR] "

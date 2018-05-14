@@ -1,7 +1,7 @@
 # From AutoSQLi
 import subprocess
-from . import log
-from .satanize import satanize_for_bash
+from autosqli import log
+from autosqli.satanize import satanize_for_bash
 
 
 def execute(command, cwd=None, timeout=None, yes=None):
