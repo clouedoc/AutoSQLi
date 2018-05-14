@@ -12,9 +12,6 @@ from autosqli import stages
 # programming ( which I think I'm doing seems not to be the best approach here
 # ^^' )
 
-# TODO: it would be nice if everything could be moved in specific classes, like
-# a `nextStage.py` file and a `main.py` file in the `autosqli` directory
-
 
 def main():
     args = argument_parse()
@@ -39,11 +36,11 @@ def main():
 
         # do the current stage and increment
         log.debug("Getting into the next stage")
-        stages.nextStage(args)
+        need_to_continue = stages.nextStage(args)
         # backup the current state (into autosqli.save)
         save.writeSave()  # TODO: add a time based saver
         log.debug("Save exported")
-        if save.getStage() == stages.REPORT_STAGE:
+        if save.getStage() == stages.REPORT_STAGE or need_to_continue is False:
             break
 
     log.info("Goodbye!")

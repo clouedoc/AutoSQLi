@@ -5,13 +5,14 @@ from autosqli.satanize import satanize_for_bash
 
 
 def execute(command, cwd=None, timeout=None, yes=None):
-    """ must be an array """
-    """ returns the stdout of command """
-    """ command is an array of args """
-    """ cwd is the current directory in which the command shall be executed """
-    """ Timeout is the timeout of the command """
-    """ yes = True: constantly feed stdin with a "y" """
-    """ yes = False: constantly feed stdin with a "n" """
+    """ must be an array
+    returns the stdout of command
+    command is an array of args
+    cwd is the current directory in which the command shall be executed
+    Timeout is the timeout of the command
+    yes = True: constantly feed stdin with a "y"
+    yes = False: constantly feed stdin with a "n"
+    """
     pre_command = []
 
     if yes is not None:
@@ -29,8 +30,6 @@ def execute(command, cwd=None, timeout=None, yes=None):
     ]
 
     # shellmode = True if yes is not None else None
-    import pdb
-    pdb.set_trace()  # XXX BREAKPOINT
     shellmode = True
     log.debug("command: {}; cwd: {}; timeout: {}; shellmode: {}".format(
         final_command, cwd, timeout, shellmode))

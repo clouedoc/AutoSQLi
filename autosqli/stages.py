@@ -24,12 +24,12 @@ def launchWafStage(args):
     wafdetect_stage(args)
 
 
-def launchSlmapStage(args):  # FIXME: implement this plz
+def launchSlmapStage(args):
     log.debug("Launching the sqlmap stage")
     sqlmap_stage(args)
 
 
-def launchReportStage(args):  # FIXME: implement this plz
+def launchReportStage(args):
     """ execute the report stage ( REPORT_STAGE ) """
     log.debug("Launching the report stage")
     report_stage(args)
@@ -53,19 +53,20 @@ def nextStage(args):
     else:
         if current_stage == DORK_STAGE:  # if in dork stage
             launchDorkStage(args)
-            return True
+            return_value = True
         elif current_stage == WAF_DETECT_STAGE:
             launchWafStage(args)
-            return True
+            return_value = True
         elif current_stage == SQLMAP_STAGE:
             launchSlmapStage(args)
-            return True
+            return_value = True
         elif current_stage == REPORT_STAGE:
             launchReportStage(args)
-            return False
+            return_value = False
         else:
             launchReportStage(args)
-            return False
+            return_value = False
 
         save.incrementStage()
         log.debug("New stage number: " + str(save.getStage()))
+        return return_value
