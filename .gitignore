@@ -1,3 +1,4 @@
 dorkoutput.txt
 *__pycache__*
-autosqli.save
+*.save
+*.save.bak
