@@ -1,16 +1,16 @@
 # Adapted to the new save system
 # from .target import urls_to_targets
 from autosqli import log
-from autosqli import findDorks  # provides findDorks.dorkLines(dorks)
+from autosqli import find_dorks  # provides find_dorks.dorkLines(dorks)
 
 # from . import save
 
 
 def search_dork(dorks):
-    return findDorks.dorkLines(dorks)
+    return find_dorks.dorkLines(dorks)
 
 
-def getDorks(args):
+def getdorks(args):
     if args.dorkfile is not None and args.dork is not None:
         log.critical("-f (--dork-file) and -d (--dork) are incompatible")
         exit(1)
@@ -27,11 +27,11 @@ def getDorks(args):
     return dorks
 
 
-def dorkStage(args):
+def dork_stage(args):
     """ add targets to the save """
 
     # get dorks from the args provided
-    dorks = getDorks(args)
+    dorks = getdorks(args)
     # get results from the dorks
     # urls = search_dork(dorks)
 

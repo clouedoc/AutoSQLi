@@ -1,10 +1,10 @@
 # From AutoSQLi
 
 from autosqli import log
-from autosqli.save import getInvulnerableTargets
+from autosqli.save import getInvulnerableTargets, getVulnerableTargets
 
 
-def reportStage(args):
+def report_stage(args):
     # TODO: add a --json argument
     # TODO: better display
     log.info("Launching the report stage")

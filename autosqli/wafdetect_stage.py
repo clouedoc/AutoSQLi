@@ -4,7 +4,7 @@ from autosqli.whatwaf_interface import whatwaf_target
 from autosqli import save
 
 
-def wafDetectStage(args):
+def wafdetect_stage(args):
     """ add details of the targets of the save """
 
     while True:

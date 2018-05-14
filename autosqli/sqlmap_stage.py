@@ -1,5 +1,5 @@
 # From AutoSQLi
 
 
-def sqlmapStage(args, targets):
+def sqlmap_stage(args, targets):
     pass
