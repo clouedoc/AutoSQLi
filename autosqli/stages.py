@@ -36,10 +36,11 @@ def launchReportStage(args):  # FIXME: implement this plz
 
 
 def nextStage(args):
-    """ execute the current stage of the save """
-    """ increase the stage number after its execution """
-    """ return True if it should be called another time """
-    """ return False if it shouldn't be called another time """
+    """ execute the current stage of the save
+    increase the stage number after its execution
+    return True if it should be called another time
+    return False if it shouldn't be called another time
+    """
 
     current_stage = save.getStage()
 
