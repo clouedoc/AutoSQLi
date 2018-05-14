@@ -7,10 +7,10 @@ from . import dorkStage
 from . import wafDetectStage
 from . import reportStage
 
-DORK_STAGE = 0          # getting urls from dork(s)
-WAF_DETECT_STAGE = 1    # detecting and tampering WAFs
-SQLMAP_STAGE = 2        # sqlmapping targets
-REPORT_STAGE = 3        # reporting vulnerable websites
+DORK_STAGE = 0  # getting urls from dork(s)
+WAF_DETECT_STAGE = 1  # detecting and tampering WAFs
+SQLMAP_STAGE = 2  # sqlmapping targets
+REPORT_STAGE = 3  # reporting vulnerable websites
 
 
 def launchDorkStage(args):
@@ -49,7 +49,7 @@ def nextStage(args):
         launchDorkStage(args)
         return False
     else:
-        if current_stage == DORK_STAGE:     # if in dork stage
+        if current_stage == DORK_STAGE:  # if in dork stage
             launchDorkStage(args)
             return True
         elif current_stage == WAF_DETECT_STAGE:

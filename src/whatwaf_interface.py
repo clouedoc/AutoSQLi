@@ -13,10 +13,11 @@ from .consts import WHATWAF_DEBUG, WHATWAF_DEBUG_REPORT
 def whatwaf_url(url):
     """ return WhatWaf's results for a specified url """
     log.debug("Launching WhatWaf on {}".format(url))
-    return execute(["python2.7", paths.WHATWAF_NAME, "-u",
-                    remove_thing_url(url), "--ra", "--hide", "--json",
-                    "--verify-num", str(WHATWAF_VERIFY_NUM)],
-                   paths.WHATWAF_PATH, None, True)
+    return execute([
+        "python2.7", paths.WHATWAF_NAME, "-u",
+        remove_thing_url(url), "--ra", "--hide", "--json", "--verify-num",
+        str(WHATWAF_VERIFY_NUM)
+    ], paths.WHATWAF_PATH, None, True)
 
 
 def whatwaf_target(target):
@@ -32,10 +33,10 @@ def whatwaf_target(target):
 
     if "no protection identified on target" in whatwaf_report:
         target.is_protected_by_waf = False
-    elif '-'*30 in whatwaf_report:
+    elif '-' * 30 in whatwaf_report:
         # extract the json part ( using those " - " )
-        gorgeous_report = whatwaf_report.split('-'*30 + '\n')[1].split(
-            '\n' + '-'*30)[0]
+        gorgeous_report = whatwaf_report.split('-' * 30 + '\n')[1].split(
+            '\n' + '-' * 30)[0]
 
         # load the json
         json_report = json.loads(gorgeous_report)

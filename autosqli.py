@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Adapted to the new save system
 
-from src import log             # provides log.info/debug/warning/critical
+from src import log  # provides log.info/debug/warning/critical
 from src.parse_args import argument_parse  # provides argument_parse()
 # from src.save import Save           # provides Save() [class]
 from src import save
@@ -20,12 +20,12 @@ def main():
     args = argument_parse()
 
     if args.debug:
-        log.debug("ok boss, launching the debug mode")
+        log.debug("Ok boss, launching in debug mode")
         import pdb
         pdb.set_trace()  # XXX BREAKPOINT
 
-    log.info("Welcome into AutoSQLi !")
-    log.debug("Checking save...")
+    log.info("Welcome into AutoSQLi!")
+    log.debug("Checking for saves...")
     save.saveStartup(args)
     log.debug("Loading save...")
     save.importSave()
@@ -42,11 +42,11 @@ def main():
         stages.nextStage(args)
         # backup the current state (into autosqli.save)
         save.writeSave()  # TODO: add a time based saver
-        log.debug("save exported")
+        log.debug("Save exported")
         if save.getStage() == stages.REPORT_STAGE:
             break
 
-    log.info("Goodbye !")
+    log.info("Goodbye!")
 
 
 if __name__ == "__main__":

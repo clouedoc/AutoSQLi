@@ -10,10 +10,10 @@ def reportStage(args):
     log.info("Launching the report stage")
 
     # display targets that are vulnerables
-    print('-'*5 + '\tvulnerable targets' + '\t-'*5)
+    print('-' * 5 + '\tvulnerable targets' + '\t-' * 5)
     for target in save.getVulnerableTargets():
         print(target)  # prints the string representation of the target.
 
-    print('-'*5 + '\tinvulnerable targets' + '\t-'*5)
+    print('-' * 5 + '\tinvulnerable targets' + '\t-' * 5)
     for target in save.getInvulnerableTargets():
         print(target)  # prints the string representation of the target.

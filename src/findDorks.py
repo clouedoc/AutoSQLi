@@ -23,7 +23,7 @@ def main():
 
 def dorkFromFile(filename):
     f = open(filename, 'r')
-    lines = f.readlines()   # read all the lines of the file into 'lines'
+    lines = f.readlines()  # read all the lines of the file into 'lines'
     f.close()
     dorkLines(lines)
 
@@ -53,12 +53,12 @@ def dorkLines(lines):
 
             # TODO: google ban handling
             result_clean = json.loads(result)
-#            # try:
-#                # result_clean = json.loads(result)
-#            # except:
-#                # google_ban = True
-#                # print("Google may have banned us\
-#                      # , but don't worry, it's temporary")
+            #            # try:
+            #                # result_clean = json.loads(result)
+            #            # except:
+            #                # google_ban = True
+            #                # print("Google may have banned us\
+            #                      # , but don't worry, it's temporary")
 
             for x in result_clean:
                 # url = x['url']
@@ -69,13 +69,13 @@ def dorkLines(lines):
             result = duckSearch(dork)
             result_clean = json.loads(result)
 
-#            # TODO: ducky ban handling
-#            # try:
-#                # result_clean = json.loads(result)
-#            # except:
-#                # duck_ban = True
-#                # print("DuckduckGo may have banned us, \
-#                       #but don't worry, it's temporary")
+            #            # TODO: ducky ban handling
+            #            # try:
+            #                # result_clean = json.loads(result)
+            #            # except:
+            #                # duck_ban = True
+            #                # print("DuckduckGo may have banned us, \
+            #                       #but don't worry, it's temporary")
 
             for x in result_clean:
                 # url = x['url']
@@ -97,9 +97,8 @@ def googleSearch(dork):
 def duckSearch(dork):
     """ dork shall be a string which contains... a dork. """
     """ returns the duckduckgo json response for the specified dork """
-    return execute([ddgr_path,
-                    dork,
-                    "--unsafe", "--json", "--np", "--num", "25"])
+    return execute(
+        [ddgr_path, dork, "--unsafe", "--json", "--np", "--num", "25"])
 
 
 if __name__ == "__main__":
