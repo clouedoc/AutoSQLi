@@ -1,7 +1,7 @@
 # From AutoSQLi
 
-from . import log
-from . import save
+from autosqli import log
+from autosqli.save import getInvulnerableTargets
 
 
 def reportStage(args):
@@ -10,10 +10,10 @@ def reportStage(args):
     log.info("Launching the report stage")
 
     # display targets that are vulnerables
-    print('-'*5 + '\tvulnerable targets' + '\t-'*5)
-    for target in save.getVulnerableTargets():
+    print('-' * 5 + '\tvulnerable targets' + '\t-' * 5)
+    for target in getVulnerableTargets():
         print(target)  # prints the string representation of the target.
 
-    print('-'*5 + '\tinvulnerable targets' + '\t-'*5)
-    for target in save.getInvulnerableTargets():
+    print('-' * 5 + '\tinvulnerable targets' + '\t-' * 5)
+    for target in getInvulnerableTargets():
         print(target)  # prints the string representation of the target.

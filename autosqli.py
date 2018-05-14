@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # Adapted to the new save system
 
-from src import log             # provides log.info/debug/warning/critical
-from src.parse_args import argument_parse  # provides argument_parse()
-# from src.save import Save           # provides Save() [class]
-from src import save
-from src import stages
+from autosqli import log  # provides log.info/debug/warning/critical
+from autosqli.parse_args import argument_parse  # provides argument_parse()
+# from autosqli.save import Save           # provides Save() [class]
+from autosqli import save
+from autosqli import stages
 
 # TODO: create a classes system for stages ( base stage class and sub class
 # stages. I don't really know how I would do this for now, but fonctionnal
@@ -13,19 +13,19 @@ from src import stages
 # ^^' )
 
 # TODO: it would be nice if everything could be moved in specific classes, like
-# a `nextStage.py` file and a `main.py` file in the `src` directory
+# a `nextStage.py` file and a `main.py` file in the `autosqli` directory
 
 
 def main():
     args = argument_parse()
 
     if args.debug:
-        log.debug("ok boss, launching the debug mode")
+        log.debug("Ok boss, launching in debug mode")
         import pdb
         pdb.set_trace()  # XXX BREAKPOINT
 
-    log.info("Welcome into AutoSQLi !")
-    log.debug("Checking save...")
+    log.info("Welcome into AutoSQLi!")
+    log.debug("Checking for saves...")
     save.saveStartup(args)
     log.debug("Loading save...")
     save.importSave()
@@ -42,11 +42,11 @@ def main():
         stages.nextStage(args)
         # backup the current state (into autosqli.save)
         save.writeSave()  # TODO: add a time based saver
-        log.debug("save exported")
+        log.debug("Save exported")
         if save.getStage() == stages.REPORT_STAGE:
             break
 
-    log.info("Goodbye !")
+    log.info("Goodbye!")
 
 
 if __name__ == "__main__":

@@ -1,8 +1,8 @@
 # From AutoSQLi
 
 # from . import log
-from . import stages
-from . import log
+from autosqli import stages
+from autosqli import log
 
 import pickle
 from os.path import isfile
@@ -10,10 +10,7 @@ from os.path import isfile
 SAVE_PATH = 'autosqli.save'
 
 # this is the default save
-save = {
-    'targets': [],
-    'stage': stages.DORK_STAGE
-}
+save = {'targets': [], 'stage': stages.DORK_STAGE}
 
 
 def writeSave():

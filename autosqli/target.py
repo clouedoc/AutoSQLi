@@ -2,12 +2,12 @@
 
 import uuid
 
-REPORT_FORMAT = '-'*30 + """
+REPORT_FORMAT = '-' * 30 + """
 Target: {}
     vulnerable  :   {}
     waf name    :   {}
     tampers     :   {}
-""" + '-'*30
+""" + '-' * 30
 
 
 class Target:  # TODO: set proper getters and setters
