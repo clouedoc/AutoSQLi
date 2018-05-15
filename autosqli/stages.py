@@ -24,7 +24,7 @@ def launchWafStage(args):
     wafdetect_stage(args)
 
 
-def launchSlmapStage(args):
+def launchSqlmapStage(args):
     log.debug("Launching the sqlmap stage")
     sqlmap_stage(args)
 
@@ -58,7 +58,7 @@ def nextStage(args):
             launchWafStage(args)
             return_value = True
         elif current_stage == SQLMAP_STAGE:
-            launchSlmapStage(args)
+            launchSqlmapStage(args)
             return_value = True
         elif current_stage == REPORT_STAGE:
             launchReportStage(args)
