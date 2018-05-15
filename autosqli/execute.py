@@ -4,7 +4,7 @@ from autosqli import log
 from autosqli.satanize import satanize_for_bash
 
 
-def execute(command, cwd=None, timeout=None, yes=None):
+def execute(command, cwd=None, timeout=None, yes=None, background=False):
     """ must be an array
     returns the stdout of command
     command is an array of args

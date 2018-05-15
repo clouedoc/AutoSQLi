@@ -12,26 +12,6 @@ SAVE_PATH = 'autosqli.save'
 save = {'targets': [], 'stage': stages.DORK_STAGE}
 
 
-def get_vulnerable_targets():
-    """ returns all vulnerable targets from the save """
-    vulnerable_list = []
-    for target in save['targets']:
-        if target.isVulnerable():
-            vulnerable_list.append(target)
-
-    return vulnerable_list
-
-
-def get_invulnerable_targets():
-    """ returns all invulnerable targets from the save """
-    invulnerable_list = []
-    for target in save['targets']:
-        if not target.isVulnerable():
-            invulnerable_list.append(target)
-
-    return invulnerable_list
-
-
 def writeSave():
     """ write in picle format the storage var """
     with open(SAVE_PATH, 'wb') as f:
@@ -104,7 +84,7 @@ def getUnwaffedTarget():
     return None
 
 
-def get_unsqlmapped_targets():
+def get_unsqlmapped_target():
     """ return a target which needs to be analyzed by sqlmap """
     """ if no target is found, return None """
     for target in save['targets']:
@@ -129,3 +109,23 @@ def updateTarget(target):
 def getTargets():
     """ return all targets from the save """
     return save['targets']
+
+
+def get_vulnerable_targets():
+    """ returns all vulnerable targets from the save """
+    vulnerable_list = []
+    for target in save['targets']:
+        if target.isVulnerable():
+            vulnerable_list.append(target)
+
+    return vulnerable_list
+
+
+def get_invulnerable_targets():
+    """ returns all invulnerable targets from the save """
+    invulnerable_list = []
+    for target in save['targets']:
+        if not target.isVulnerable():
+            invulnerable_list.append(target)
+
+    return invulnerable_list
