@@ -7,6 +7,7 @@ import json
 import re
 import requests
 import psutil
+import time
 from multiprocessing import Process
 
 from autosqli.execute import execute
@@ -14,7 +15,7 @@ from autosqli import log
 
 
 def sqlmapapi_launch():
-    """ launches sqlmapapi in another process """
+    """ launches sqlmapapi in another process and make sure it launched """
 
     def background():
         sta = execute(['python2.7', 'sqlmapapi.py', '-s'], 'sqlmap/', None,
@@ -29,21 +30,33 @@ def sqlmapapi_launch():
     p = Process(target=background)
     p.start()
 
+    time.sleep(5)
+
+    if not is_sqlmapapi_launched:
+        log.critical("sqlmapapi.py couldn't be launched")
+
+
+def is_sqlmapapi_launched():
+    """ return True if sqlmapapi is launched, otherwise False """
+    launched = False
+    launched = 'sqlmapapi.py' in str({p.pid: p.info for p in
+                                      psutil.process_iter(attrs=['cmdline'])})
+
+    return launched
+
 
 def sqlmapapi_check():
     """ verify if sqlmapi is launched, if not launch it """
     log.info("Checking if sqlmapapi is already launched")
 
-    launched = False
-    launched = 'sqlmapapi.py' in str({p.pid: p.info for p in
-                                      psutil.process_iter(attrs=['cmdline'])})
-    if not launched:
+    if not is_sqlmapapi_launched():
         log.info("Launching sqlmapapi")
         sqlmapapi_launch()
 
 
 def sqlmap_url(url, options):
     """ return sqlmap results for a specific url and specified options """
+    """ if there was an error, return None """
     # check if sqlmapapi is available
     sqlmapapi_check()
 
@@ -55,15 +68,26 @@ def sqlmap_url(url, options):
 
     scan_id = sqlmap.get_scan_id()
     log.debug("Launching a sqlmap scan for {} (id: {})".format(url, scan_id))
+    log.debug("Options for {}: {}".format(url, options))
     sqlmap.start_scan(scan_id, options)
-    # TODO: wait for scan to finish
-    pass  # FIXME: not done
+
+    logs = sqlmap.show_sqlmap_log(scan_id)
+
+    if logs is None:
+        return None
+    else:
+        return logs
 
 
-def sqlmap_target(target):
+def sqlmap_target(target, options):
     """ add sqlmap details to a Target """
-    report = sqlmap_url(target.url)
+    report = sqlmap_url(target.url, options)
+    if report is None:
+        log.critical("There was an error while scanning {}".format(target.url))
+        exit(1)  # just to be sure
+
     log.debug("report: {}".format(report))
+    raise "Debug here :)"
     pass
 
 
@@ -92,7 +116,12 @@ class SqlmapHook(object):
         create a new API scan
         """
         new_scan_url = "{}{}".format(self.connection, self.commands["init"])
-        return requests.get(new_scan_url, params=self.headers)
+        try:
+            results = requests.get(new_scan_url, params=self.headers)
+            return results
+        except Exception as e:
+            log.critical("An error happenned in init_new_scan: {}".format(e))
+            return None
 
     def get_scan_id(self, split_by=16):
         """
@@ -130,8 +159,8 @@ class SqlmapHook(object):
         )
 
     def show_sqlmap_log(self, api_id):
-        """
-        show the sqlmap log during the API scan
+        """show the sqlmap log
+        if the scan isn't running, returns None
         """
         running_status_url = "{}{}".format(
             self.connection,
@@ -145,10 +174,11 @@ class SqlmapHook(object):
         status_json = json.loads(status_req.content)
         current_status = status_json["status"]
         if current_status != "running":
-            log.critical(
+            log.debug(
                 "sqlmap API failed to start the run, check the client and see "
                 "what the problem is and try again"
             )
+            return None
         already_displayed = set()
         while current_status == "running":
             # while the current status evaluates to `running`
