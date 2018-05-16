@@ -34,7 +34,7 @@ class Target:  # TODO: set proper getters and setters
         return self.is_vulnerable
 
     def isSqlmapped(self):
-        return self.sqlmap_exploitation_done
+        return self.sqlmap_detection_done
 
     def isWaffed(self):
         return self.waf_detection_done
