@@ -50,6 +50,9 @@ def nextStage(args):
     elif args.dorkOnly:
         launchDorkStage(args)
         return_value = False
+        # since we got target data, we can increment the stage for future use
+        if save.getStage() == DORK_STAGE:
+            save.incrementStage()
     else:
         if current_stage == DORK_STAGE:  # if in dork stage
             launchDorkStage(args)
