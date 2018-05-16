@@ -7,9 +7,9 @@ def sqlmap_stage(args):
     """ do a sqlmap scan on all the targets """
 
     while True:
-        with save.get_unsqlmapped_target() as target:
-            # there is no not sqlmapped target remaining
-            if target is None:
-                break
+        target = save.get_unsqlmapped_target()
+
+        if target is None:
+            break
 
 
