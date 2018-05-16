@@ -30,10 +30,6 @@ def main():
     log.debug("current_save.stage in main(): " + str(save.getStage()))
 
     while True:
-        if args.debug:
-            log.debug("activating breakpoint")
-            pudb.set_trace()
-
         # do the current stage and increment
         log.debug("Getting into the next stage")
         need_to_continue = stages.nextStage(args)
