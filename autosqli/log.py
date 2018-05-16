@@ -10,20 +10,20 @@ WARNING_PREFIX = colors.FAIL + colors.BOLD + "[WARNING] "
 
 
 def debug(msg):
-    print(DEBUG_PREFIX + msg + colors.ENDC)
+    print(DEBUG_PREFIX + str(msg) + colors.ENDC)
 
 
 def info(msg):
-    print(INFO_PREFIX + msg + colors.ENDC)
+    print(INFO_PREFIX + str(msg) + colors.ENDC)
 
 
 def error(msg):
-    print(ERROR_PREFIX + msg + colors.ENDC)
+    print(ERROR_PREFIX + str(msg) + colors.ENDC)
 
 
 def critical(msg):
-    print(CRITICAL_PREFIX + msg + colors.ENDC)
+    print(CRITICAL_PREFIX + str(msg) + colors.ENDC)
 
 
 def warning(msg):
-    print(WARNING_PREFIX + msg + colors.ENDC)
+    print(WARNING_PREFIX + str(msg) + colors.ENDC)
