@@ -1,3 +1,4 @@
+pudb
 argparse
 psutil
 requests
