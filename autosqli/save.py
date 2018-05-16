@@ -94,7 +94,7 @@ def get_unsqlmapped_target():
     return None
 
 
-def updateTarget(target):
+def update_target(target):
     """ update an already existing target """
     index = 0
     targetUuid = target.uuid
