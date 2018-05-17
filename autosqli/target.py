@@ -19,6 +19,8 @@ class Target:  # TODO: set proper getters and setters
     sqlmap_detection_done = False
     is_vulnerable = False
     sqlmap_logs = []
+    connection_error = False
+    sqlmap_bug = False
 
     def __init__(self, url):
         """ create a new Target from a url"""
@@ -47,6 +49,12 @@ class Target:  # TODO: set proper getters and setters
 
     def getTampers(self):
         return self.working_tampers
+
+    def set_connection_error(self, error):
+        self.connection_error = error
+
+    def set_sqlmap_bug(self, bug):
+        self.sqlmap_bug = bug
 
 
 def urls_to_targets(urls):

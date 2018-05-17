@@ -71,24 +71,31 @@ def sqlmap_url(url, options):
     log.debug("Options for {}: {}".format(url, options))
     sqlmap.start_scan(scan_id, options)
 
-    logs = sqlmap.show_sqlmap_log(scan_id)
+    while True:
+        time.sleep(1)
+        logs, running = sqlmap.show_sqlmap_log(scan_id)
 
-    if logs is None:
-        return None
-    else:
-        return logs
+        if not running:
+            return logs
+
+        time.sleep(4)
+
+
+def parse_report(report, target):
+    """ add sqlmap report details to a given target """
+    log.debug("report: {}".format(report))
 
 
 def sqlmap_target(target, options):
-    """ add sqlmap details to a Target """
-    report = sqlmap_url(target.url, options)
+    """ add sqlmap details to a Target and return it """
+    report = sqlmap_url(target.getUrl(), options)
     if report is None:
         log.critical("There was an error while scanning {}".format(target.url))
         exit(1)  # just to be sure
 
-    log.debug("report: {}".format(report))
-    raise "Debug here :)"
-    pass
+    target = parse_report(report, target)
+    # TODO: finish this :)
+    return target
 
 
 class SqlmapHook(object):
@@ -147,11 +154,7 @@ class SqlmapHook(object):
             for i in range(0, len(opts)):
                 data_dict[opts[i][0]] = opts[i][1]
         post_data = json.dumps(data_dict)
-        # req = urllib2.Request(
-        #     start_scan_url,
-        #     data=post_data,
-        #     headers=self.headers
-        # )
+
         requests.post(
             start_scan_url,
             data=post_data,
@@ -160,47 +163,40 @@ class SqlmapHook(object):
 
     def show_sqlmap_log(self, api_id):
         """show the sqlmap log
-        if the scan isn't running, returns None
+        return a tuple like this: (logs, is_running)
         """
+
         running_status_url = "{}{}".format(
             self.connection,
             self.commands["status"].format(api_id)
         )
+
         running_log_url = "{}{}".format(
             self.connection,
             self.commands["log"].format(api_id)
         )
+
         status_req = requests.get(running_status_url)
         status_json = json.loads(status_req.content)
         current_status = status_json["status"]
+
+        is_running = True
+        logs = ''
+
         if current_status != "running":
-            log.debug(
-                "sqlmap API failed to start the run, check the client and see "
-                "what the problem is and try again"
-            )
-            return None
-        already_displayed = set()
-        while current_status == "running":
-            # while the current status evaluates to `running`
-            # we can load the JSON data and output the log information
-            # we will skip over information that has already been provided
-            # by using the already displayed container set.
-            # this will allow us to only output information that we
-            # have not seen yet.
-            current_status = json.loads(
-                requests.get(running_status_url).content
-            )["status"]
-            log_req = requests.get(running_log_url)
-            log_json = json.loads(log_req.content)
-            for i in range(0, len(log_json["log"])):
-                if log_json["log"][i]["message"] in already_displayed:
-                    pass
-                else:
-                    print(
-                        "sqlmap> [{} {}] {}".format(
-                            log_json["log"][i]["time"],
-                            log_json["log"][i]["level"],
-                            log_json["log"][i]["message"]
-                        )
-                    )
-                already_displayed.add(log_json["log"][i]["message"])
+            log.debug("[scan: {}] scan isn't running: {}".
+                      format(api_id, current_status))
+            is_running = False
+
+        current_status = json.loads(
+            requests.get(running_status_url).content
+        )["status"]
+
+        log_req = requests.get(running_log_url)
+        log_json = json.loads(log_req.content)
+
+
+        for i in range(0, len(log_json["log"])):
+            logs += log_json["log"][i]["message"]
+
+        return (logs, is_running)
