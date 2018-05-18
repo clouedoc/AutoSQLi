@@ -1,6 +1,7 @@
 # From AutoSQLi
 
 import uuid
+import os
 
 REPORT_FORMAT = '-' * 30 + """
 Target: {}
@@ -49,6 +50,18 @@ class Target:  # TODO: set proper getters and setters
 
     def getTampers(self):
         return self.working_tampers
+
+    def get_tampers_paths(self):
+        """ return complete uri ( python file path ) of self.working_tampers"""
+        uri_of_tampers = []
+        for tamper in self.working_tampers:
+            uri_of_tampers.append(os.path.abspath(
+                'WhatWaf/'
+                + self.working_tampers
+                + '.py')
+            )
+
+        return uri_of_tampers
 
     def set_connection_error(self, error):
         self.connection_error = error
