@@ -18,10 +18,11 @@ class Target:  # TODO: set proper getters and setters
     waf_name = ""
     working_tampers = []
     sqlmap_detection_done = False
-    is_vulnerable = False
-    sqlmap_logs = []
+    vulnerable = False
+    sqlmap_logs = ''
     connection_error = False
     sqlmap_bug = False
+    sqlmap_error = False
 
     def __init__(self, url):
         """ create a new Target from a url"""
@@ -34,7 +35,7 @@ class Target:  # TODO: set proper getters and setters
                                     self.getWafName(), self.getTampers())
 
     def isVulnerable(self):
-        return self.is_vulnerable
+        return self.vulnerable
 
     def isSqlmapped(self):
         return self.sqlmap_detection_done
@@ -68,6 +69,15 @@ class Target:  # TODO: set proper getters and setters
 
     def set_sqlmap_bug(self, bug):
         self.sqlmap_bug = bug
+
+    def set_vulnerability_status(self, status):
+        self.vulnerable = status
+
+    def set_sqlmap_logs(self, logs):
+        self.sqlmap_logs = logs
+
+    def set_sqlmap_error(self, error):
+        self.sqlmap_error = error
 
 
 def urls_to_targets(urls):

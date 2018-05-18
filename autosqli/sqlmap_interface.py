@@ -84,6 +84,21 @@ def sqlmap_url(url, options):
 def parse_report(report, target):
     """ add sqlmap report details to a given target """
     log.debug("report: {}".format(report))
+    if 'CRITICAL' in report:
+        if 'all tested parameters do not appear to be injectable.' in report:
+            # The detection process was error-free but didn't found a SQLi
+            target.set_vulnerability_status(False)
+        else:
+            # There was an error that we are too lazy to handle
+            target.set_vulnerability_status(False)
+            target.set_sqlmap_error(True)
+    else:
+        log.critical("not finished yetttt :(")
+        print('report:\n\n{}'.format(report))
+        exit(69)
+
+    target.set_sqlmap_logs(report)
+    return target
 
 
 def sqlmap_target(target, options):
@@ -194,7 +209,6 @@ class SqlmapHook(object):
 
         log_req = requests.get(running_log_url)
         log_json = json.loads(log_req.content)
-
 
         for i in range(0, len(log_json["log"])):
             logs += log_json["log"][i]["message"]
