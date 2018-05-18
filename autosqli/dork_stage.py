@@ -28,7 +28,8 @@ def getdorks(args):
                              (-f/--dork-file): {}'.format(e))
         else:
             log.critical(
-                "The dork file supplied (-f/--dork-file) does not exists")
+                "The dork file supplied (-f/--dork-file) does not exists"
+            )
         pass  # TODO: accept a dorkfile
     elif args.dorkfile is None and args.dork is None:
         log.debug("interactively querying dork")
@@ -45,14 +46,6 @@ def dork_stage(args):
 
     # get dorks from the args provided
     dorks = getdorks(args)
-    # get results from the dorks
-    # urls = search_dork(dorks)
 
+    # search_dork create targets by itself
     search_dork(dorks)
-
-
-#    # convert urls to targets
-#    targets_to_test = urls_to_targets(urls)
-#    # append our targets to the current_save
-#    for target in targets_to_test:
-#        current_save.targets_to_test.append(target)
