@@ -1,5 +1,7 @@
 # Adapted to the new save system
 # from .target import urls_to_targets
+import os
+
 from autosqli import log
 from autosqli import find_dorks  # provides find_dorks.dorkLines(dorks)
 
@@ -15,7 +17,18 @@ def getdorks(args):
         log.critical("-f (--dork-file) and -d (--dork) are incompatible")
         exit(1)
     elif args.dorkfile is not None:
-        exit(2)  # not implemented
+        if os.path.isfile(args.dorkfile):
+            lines = []
+            try:
+                with open(args.dorkfile) as dork_file:
+                    for line in dork_file:
+                        lines.append(line)
+            except IOError as e:
+                log.critical('Got an error when reading the supplied dork file\
+                             (-f/--dork-file): {}'.format(e))
+        else:
+            log.critical(
+                "The dork file supplied (-f/--dork-file) does not exists")
         pass  # TODO: accept a dorkfile
     elif args.dorkfile is None and args.dork is None:
         log.debug("interactively querying dork")
