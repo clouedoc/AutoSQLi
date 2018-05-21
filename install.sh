@@ -17,5 +17,5 @@ echo ""
 
 echo "running chmod +x on *.py ..."
 chmod +x DorkNet/dorknet.py
-chmod +x WhatWaf/WhatWaf.py
+chmod +x WhatWaf/whatwaf.py
 chmod +x sqlmap/sqlmap.py
