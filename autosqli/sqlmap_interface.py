@@ -1,5 +1,5 @@
 # From AutoSQLi
-# Most parts of this file where took from here:
+# Most parts of this file were taken from here:
 # https://github.com/Ekultek/Zeus-Scanner/blob/master/lib/attacks/sqlmap_scan/__init__.py
 # Thanks to Ekultek (https://github.com/Ekultek) !
 
