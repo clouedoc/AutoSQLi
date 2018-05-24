@@ -6,14 +6,23 @@ from autosqli import log
 from autosqli.strings import BANNED_TAMPERS
 from autosqli.satanize import remove_thing_url
 from autosqli.execute import execute
-from autosqli.consts import WHATWAF_VERIFY_NUM, WHATWAF_DEBUG, WHATWAF_DEBUG_REPORT
+from autosqli.consts import WHATWAF_VERIFY_NUM, WHATWAF_DEBUG, \
+    WHATWAF_DEBUG_REPORT
+
+
+whatwaf_path = None
+
+
+def set_whatwaf_path(path):
+    global whatwaf_path
+    whatwaf_path = path
 
 
 def whatwaf_url(url):
     """ return WhatWaf's results for a specified url """
     log.debug("Launching WhatWaf on {}".format(url))
     return execute([
-        "python2.7", paths.WHATWAF_NAME, "-u",
+        "python2.7", whatwaf_path, "-u",
         remove_thing_url(url), "--ra", "--hide", "--json", "--verify-num",
         str(WHATWAF_VERIFY_NUM)
     ], paths.WHATWAF_PATH, None, True)
