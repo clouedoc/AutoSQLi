@@ -4,11 +4,14 @@ from autosqli import sqlmap_options
 
 def get_options_for_target(target):
     """ return a customized set of sqlmap options for a target ( tampers ) """
+
     # FIXME: to debug :)
-    tampers_string = ''
     tampers = target.get_tampers_paths()
     options = sqlmap_options.BASE_SQLMAP_OPTIONS
 
+    # add all the tampers in tampers to a string: tampers_string
+    # format: tamper1,tamper2,tamper3
+    tampers_string = ''
     for tamper in tampers:
         tampers.remove(tamper)
         tampers_string.append("{}{}".format(
