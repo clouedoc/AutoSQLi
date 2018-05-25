@@ -4,7 +4,7 @@ from autosqli import paths
 from autosqli import log
 
 from autosqli.strings import BANNED_TAMPERS
-from autosqli.satanize import remove_thing_url
+# from autosqli.satanize import remove_thing_url
 from autosqli.execute import execute
 from autosqli.consts import WHATWAF_VERIFY_NUM, WHATWAF_DEBUG, \
     WHATWAF_DEBUG_REPORT
@@ -22,8 +22,9 @@ def whatwaf_url(url):
     """ return WhatWaf's results for a specified url """
     log.debug("Launching WhatWaf on {}".format(url))
     return execute([
-        "python2.7", whatwaf_path, "-u",
-        remove_thing_url(url), "--ra", "--hide", "--json", "--verify-num",
+        "python2.7", whatwaf_path + 'whatwaf.py', "-u",
+        url, "--ra", "--hide", "--json",
+        "--verify-num",
         str(WHATWAF_VERIFY_NUM)
     ], paths.WHATWAF_PATH, None, True)
 
@@ -39,9 +40,12 @@ def whatwaf_target(target):
     whatwaf_report = WHATWAF_DEBUG_REPORT if WHATWAF_DEBUG else \
         whatwaf_url(target.url)
 
-    if "no protection identified on target" in whatwaf_report:
+    if 'detected website protection' in whatwaf_report:
+        target.is_protected_by_waf = True
+    else:
         target.is_protected_by_waf = False
-    elif '-' * 30 in whatwaf_report:
+
+    if '-' * 30 in whatwaf_report:
         # extract the json part ( using those " - " )
         gorgeous_report = whatwaf_report.split('-' * 30 + '\n')[1].split(
             '\n' + '-' * 30)[0]
@@ -58,5 +62,6 @@ def whatwaf_target(target):
                 target.working_tamper.append(tamper)
 
     # TODO: analyze the report to return the target
+    target.whatwaf_report = whatwaf_report
     target.waf_detection_done = True
     return target

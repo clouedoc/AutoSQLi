@@ -11,9 +11,10 @@ Target: {}
 """ + '-' * 30
 
 
-class Target:  # TODO: set proper getters and setters
+class Target:
     url = ""
     waf_detection_done = False
+    whatwaf_report = None
     is_protected_by_waf = False
     waf_name = ""
     working_tampers = []

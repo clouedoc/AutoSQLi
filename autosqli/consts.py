@@ -1,9 +1,11 @@
-#From AutoSQLi
+# From AutoSQLi
 
 # Intensity of WhatWaf's WAF research. Must be >= 1 and <= 5
 WHATWAF_VERIFY_NUM = "3"
 
-WHATWAF_DEBUG = True
+# WHATWAF_DEBUG = True
+WHATWAF_DEBUG = False
+
 WHATWAF_DEBUG_REPORT = """
 ------------------------------
 {
