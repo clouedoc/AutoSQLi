@@ -2,3 +2,4 @@ dorkoutput.txt
 *__pycache__*
 *.save
 *.save.bak
+.DS_Store
