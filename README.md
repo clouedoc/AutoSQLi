@@ -45,45 +45,11 @@ Also, AutoSQLi should work using Tor by default. So it should check for tor avai
 
 ### Cool :)
 
-Yeah, I know.
+Thanks
 
 ### It looks like SQLiDumper, no ?
 
 Yeah, I know.
-
-## Popularity note ( 2018-05-10 )
-
-When I woke up this morning, someone said that a guy by the name of NullArray tweeted about this project. 11 stars later, it makes me want to finish it more than ever !
-
-## Contribution Note
-
-Friday, the 11th of May, the first pull request of this project was sent by [@iyanuashiri](https://github.com/iyanuashiri).
-
-## sTaTiStIcS
-
-### 2018-05-11
-
-Today, we are at 15 stars, and got our first pull request. The number of cloners and unique viewers is decreasing with the time, but I noticed that someone followed a link from `web.telegram.org`. Well, those referer statistics are cool.
-I also finished implementing WhatWaf :)
-
-### 2018-05-12
-
-As of today, there is 21 stargazers. In fact there is only 4 unique cloners, so I'm wondering if the peoples who stars this repo aren't compulsive-stargazers. NO OFFENSES MEANT :), please, put a star on this repo, I like it.
-The save system got completly modified, because the old one was pretty random.
-The code now have debugging facilities ( a --debug switch ).
-It can dork and automatically WAF websites.
-That's all.
-Damn, creating a piece of glue is quite hard :)
-
-### 2018-05-13
-
-We're at 22 stars, cause I starred my own repo. That's strange, the star haze seems to go down, end I'm pretty sure the first working version will be out in one or two weeks
-
-Also, today, I was at the point of buying a HackRF One ( you know, these cards which can transmit on pretty all radio frequencies that are and were used by electronic things ).
-The fact is I only have 100€ right now, and the HackRF One costs 300€. Ya.
-I think I'll wait. ~please buy me a HackRF One :)~
-
-# Disclaimer ( because you know, every InfoSec projects should have one )
 
 ## Don't mess up
 
