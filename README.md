@@ -1,7 +1,5 @@
 # AutoSQLi, **the new way script-kiddies hack websites**
 
-(that's a joke :p)
-
 ## Features
 
 -   Save System
